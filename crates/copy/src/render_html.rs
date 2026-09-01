@@ -1,6 +1,6 @@
 //! Gumroad 商品ページ (`--description`) 向け HTML の組版。
 //!
-//! 受理される要素は `plans/copy_source_v01.md` §2 の実測に従う。**`<img>` は通らない
+//! 受理される要素は `plans/archive/copy_source_v01.md` §2 の実測に従う。**`<img>` は通らない
 //! ので出さない** (同 不変条件 5)。画像はカバー機能で別途載せる。文字列は必ず
 //! [`markdown::escape`] / [`markdown::to_html`] を通す (同 不変条件 4)。
 //!
@@ -36,6 +36,15 @@ pub fn render(c: &Copy) -> Result<String> {
         escape(&c.tagline.en),
         escape(&c.tagline.ja)
     ));
+
+    // デモ動画。`<img>` は通らないが `<iframe>` は通る (計画書 §2 の実測)。
+    s.push_str(&format!(
+        "<div style=\"position:relative;padding-bottom:56.25%;height:0\"><iframe src=\"https://www.youtube-nocookie.com/embed/{}\" title=\"{} demo\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;border:0\" allowfullscreen loading=\"lazy\"></iframe></div>
+",
+        escape(&c.meta.youtube_id),
+        escape(&c.meta.name)
+    ));
+
     s.push_str(&to_html(&c.prose.lead.en)?);
 
     // --- 共有ブロック (言語分割より上)。導線と収録内容を設計思想より先に出す。

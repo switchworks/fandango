@@ -6,6 +6,7 @@ schema_version = 1
 [meta]
 name = "fandango"
 author = "switchworks"
+youtube_id = "sUw1qtUrsVs"
 
 [tagline]
 ja = "式で閉じる。だから、壊れない。"
