@@ -1,0 +1,57 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/shared",
+    "crates/spread",
+    "crates/raindrop",
+    "crates/gate",
+    "crates/drawl",
+    "crates/trip-delay",
+    "crates/velvet",
+    "crates/rotate",
+    "crates/crush",
+    "crates/tilt",
+    "crates/nice-bulk",
+    "crates/nimbus",
+    "crates/finalist",
+    "crates/fb2k-ffi",
+    "crates/shots",
+    "crates/copy",
+]
+
+# 退役した crate。参考実装として `attic/` に凍結する（ビルド対象外）。
+# 経緯と復帰手順は `attic/README.md` 参照。
+exclude = [
+    "attic/excite",
+    "attic/excite-ab",
+]
+
+[workspace.package]
+version = "1.0.0"
+edition = "2021"
+authors = ["switchworks"]
+license = "GPL-3.0-or-later"
+repository = "https://github.com/switchworks/fandango"
+
+[workspace.dependencies]
+nih_plug = { git = "https://github.com/robbert-vdh/nih-plug.git", rev = "28b149e" }
+nih_plug_egui = { git = "https://github.com/robbert-vdh/nih-plug.git", rev = "28b149e" }
+# nih_plug_egui が内部で使う egui-baseview と同一 git rev を明示依存させ、feature
+# unification で `windows_keyboard_workaround` を有効化する (直接は使わない)。
+# Windows で TextEdit 等キーボード入力が効かない既知バグの回避策
+# (https://github.com/BillyDM/egui-baseview/issues/20)。nih_plug_egui はこの
+# feature を公開していないため、この迂回でしか有効化できない。
+egui-baseview = { git = "https://github.com/BillyDM/egui-baseview.git", rev = "ec70c3fe6b2f070dcacbc22924431edbe24bd1c0", features = [
+    "windows_keyboard_workaround",
+] }
+fandango-shared = { path = "crates/shared" }
+
+[profile.release]
+lto = "thin"
+strip = "symbols"
+
+[profile.dev]
+opt-level = 1
+# 完全なデバッグ情報は target/debug を GB 単位で膨らませる。行番号だけ残せば
+# バックトレースは読めるので、既定の "full" は使わない。
+debug = "line-tables-only"

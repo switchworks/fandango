@@ -1,0 +1,1 @@
+Rust, built on [nih-plug](https://github.com/robbert-vdh/nih-plug). The formula and measured figures for each plugin are in [docs/design.md](docs/design.md); build steps and the licensing history are in [docs/development.md](docs/development.md).

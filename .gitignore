@@ -1,0 +1,51 @@
+# Rust
+target/
+**/*.rs.bk
+*.pdb
+
+# Build artifacts
+Cargo.lock.bak
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# 計測データ (再生成可能, サイズ大)
+measurements/
+test_signals/
+analysis/
+
+# 参照バイナリ・参照音源 (再配布権利未確認)
+*.dll
+*.wav
+
+# 外部ツール (再取得可)
+tools/
+
+# 内部作業文書 (公開しない)
+plans/
+private/
+
+# scratch / 整理待ち
+tmp/
+
+# 動画用フォント (再取得可能・リポジトリに置かない)
+assets/fonts/
+
+# fb2k / MSVC ビルド生成物 (再生成可能)
+fb2k/foo_dsp_fandango/Release/
+fb2k/foo_dsp_fandango/Debug/
+fb2k/foo_dsp_fandango/x64/
+fb2k/foo_dsp_fandango/.vs/
+fb2k/dist/
+*.aps
+*.iobj
+*.ipdb
+
+# リリース zip (再生成可能)
+dist/*.zip
+
+# 配布用同梱物 (zip 側にのみ入れる)
+dist/

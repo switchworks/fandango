@@ -1,0 +1,11 @@
+[package]
+name = "fandango-excite-ab"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+publish = false
+
+[dependencies]
+fandango-excite = { path = "../excite" }
+hound = "3"

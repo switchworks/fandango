@@ -1,0 +1,22 @@
+[package]
+name = "fandango-shared"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[lib]
+
+[dependencies]
+nih_plug = { workspace = true }
+nih_plug_egui = { workspace = true }
+# 直接使わないが feature unification で windows_keyboard_workaround を有効化するため依存。
+egui-baseview = { workspace = true }
+image = { version = "0.25", default-features = false, features = ["png", "jpeg"] }
+
+[features]
+# 値表示のダブルクリックで直接入力欄を開く。既定で無効 — 多くの VST3 ホスト
+# (Cakewalk 等) が数字キーを自前のショートカットとして消費してしまい、
+# プラグイン側へ届かないため。実装は残してあるので、動作するホスト向けに
+# 必要になったらこの feature を有効化するだけで復活する。
+direct_value_entry = []

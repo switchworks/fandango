@@ -1,0 +1,3 @@
+- OS: Windows 10 / 11 (64-bit)
+- Format: VST3 (64-bit), any VST3-capable DAW
+- Sample rate and buffer size follow the host

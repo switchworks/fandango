@@ -1,0 +1,38 @@
+# nih-plug の `cargo nih-plug bundle <crate>` 用マッピング。
+# crate 名 → DAW 内表示名。
+
+[fandango-spread]
+name = "fandango - spread"
+
+[fandango-raindrop]
+name = "fandango - raindrop"
+
+[fandango-gate]
+name = "fandango - gate"
+
+[fandango-drawl]
+name = "fandango - drawl"
+
+[fandango-trip-delay]
+name = "fandango - trip delay"
+
+[fandango-velvet]
+name = "fandango - velvet"
+
+[fandango-rotate]
+name = "fandango - rotate"
+
+[fandango-crush]
+name = "fandango - crush"
+
+[fandango-tilt]
+name = "fandango - tilt"
+
+[fandango-nice-bulk]
+name = "fandango - nice bulk"
+
+[fandango-nimbus]
+name = "fandango - nimbus"
+
+[fandango-finalist]
+name = "fandango - finalist"

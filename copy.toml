@@ -1,0 +1,127 @@
+# fandango コピーの単一情報源。
+# 正本: plans/release_marketing_v01.md §0.5 (日本語) / plans/copy_en_v01.md (英語)
+# ここから README.md と Gumroad description.html を生成する (plans/copy_source_v01.md)。
+schema_version = 1
+
+[meta]
+name = "fandango"
+author = "switchworks"
+
+[tagline]
+ja = "式で閉じる。だから、壊れない。"
+en = "Closed form. So it never breaks."
+
+# 散文は断片ファイルへの参照。パスは copy/ からの相対
+[prose]
+lead     = { ja = "lead.ja.md",     en = "lead.en.md" }
+what_is  = { ja = "what_is.ja.md",  en = "what_is.en.md" }
+promises = { ja = "promises.ja.md", en = "promises.en.md" }
+tradeoff = { ja = "tradeoff.ja.md", en = "tradeoff.en.md" }
+get      = { ja = "get.ja.md",      en = "get.en.md" }
+more     = { ja = "more.ja.md",     en = "more.en.md" }
+# 環境・インストール・ライセンス・Disclaimer は英語 1 回だけ (計画書 §5 の組版方針)
+requirements = { en = "requirements.en.md" }
+install      = { en = "install.en.md" }
+license      = { en = "license.en.md" }
+disclaimer   = { en = "disclaimer.en.md" }
+
+# 見出し語
+[headings]
+what_is  = { ja = "これは何", en = "What this is" }
+plugins  = { ja = "収録プラグイン", en = "The plugins" }
+get      = { ja = "入手", en = "Get it" }
+more     = { ja = "作りに興味があれば", en = "If you care how it is built" }
+requirements = { en = "Requirements" }
+install      = { en = "Install" }
+license      = { en = "License" }
+disclaimer   = { en = "Disclaimer" }
+
+# 導線ブロック。order の crate 名は [[plugin]] の id と一致しなければエラー
+[starters]
+heading = { ja = "はじめての 1 本には、この 3 つを。", en = "Start with these three." }
+order = ["finalist", "nice-bulk", "raindrop"]
+
+[starters.note.finalist]
+ja = "押しても壊れないマキシマイザ。効きの限界が一番わかりやすい"
+en = "A maximizer you can push without it falling apart. The clearest place to hear where the limit is."
+
+[starters.note.nice-bulk]
+ja = "ノブ 2 つで低域と高域の量感だけが増える"
+en = "Two knobs, and only the low and high body comes up."
+
+[starters.note.raindrop]
+ja = "挿すと音の質感がはっきり変わる。聞き覚えのある短さ"
+en = "Load it and the texture changes outright. A short tail you have heard before."
+
+# 12 本。この配列の順にレンダリングされる (crate 順)
+[[plugin]]
+id    = "spread"
+label = "WIDTH MATRIX"
+kind  = { ja = "ステレオ幅", en = "Stereo width" }
+line  = { ja = "広げても、位相は動かない。", en = "It widens. The phase does not move." }
+
+[[plugin]]
+id    = "raindrop"
+label = "HAAS"
+kind  = { ja = "ショートディレイ", en = "Short delay" }
+line  = { ja = "その短い響きを、知っている。", en = "That short tail. You already know it." }
+
+[[plugin]]
+id    = "gate"
+label = "STATELESS"
+kind  = { ja = "ゲート", en = "Gate" }
+line  = { ja = "書いたとおりに、切れる。", en = "It cuts exactly where you wrote it." }
+
+[[plugin]]
+id    = "drawl"
+label = "FORMANT"
+kind  = { ja = "フォルマント", en = "Formant" }
+line  = { ja = "ゲインを足さない設計。出力レベルは素材と母音に従う。", en = "It never adds gain. The output level follows the material and the vowel." }
+
+[[plugin]]
+id    = "trip-delay"
+label = "POLYRHYTHM DELAY"
+kind  = { ja = "ディレイ", en = "Delay" }
+line  = { ja = "左右がずれて、拍が増える。", en = "Left drifts off right, and the beat multiplies." }
+
+[[plugin]]
+id    = "velvet"
+label = "OVN"
+kind  = { ja = "モノ → ステレオ", en = "Mono to stereo" }
+line  = { ja = "モノから、幅を作る。", en = "Width, made out of mono." }
+
+[[plugin]]
+id    = "rotate"
+label = "ALLPASS"
+kind  = { ja = "位相回転", en = "Phase rotation" }
+line  = { ja = "音色は変えず、山は先に削る。", en = "Same tone. Cut the peaks first." }
+
+[[plugin]]
+id    = "crush"
+label = "ANTIDERIVATIVE"
+kind  = { ja = "ビットクラッシャー", en = "Bit crusher" }
+line  = { ja = "落としても、濁らない。", en = "Drop the bits. Nothing smears." }
+
+[[plugin]]
+id    = "tilt"
+label = "SHELF"
+kind  = { ja = "ティルト EQ", en = "Tilt EQ" }
+line  = { ja = "明暗を、1本で。", en = "Bright or dark, one knob." }
+
+[[plugin]]
+id    = "nice-bulk"
+label = "POWER LAW"
+kind  = { ja = "低域・高域の量感", en = "Low and high body" }
+line  = { ja = "上げるほど、太くなる。", en = "The further you turn it, the fatter it gets." }
+
+[[plugin]]
+id    = "nimbus"
+label = "EARLY REFLECTIONS"
+kind  = { ja = "初期反射", en = "Early reflections" }
+line  = { ja = "広げるのではなく、馴染ませる。", en = "It doesn't widen. It settles things in." }
+
+[[plugin]]
+id    = "finalist"
+label = "MAXIMIZER"
+kind  = { ja = "マキシマイザ", en = "Maximizer" }
+line  = { ja = "最低ラインを、業界標準に置いた。", en = "The floor is set at the industry standard." }

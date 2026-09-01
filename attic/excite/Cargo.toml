@@ -1,0 +1,24 @@
+[package]
+name = "fandango-excite"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+standalone-preview = ["nih_plug/standalone"]
+
+[[bin]]
+name = "excite_preview"
+path = "src/bin/excite_preview.rs"
+required-features = ["standalone-preview"]
+
+[dependencies]
+nih_plug = { workspace = true }
+fandango-shared = { workspace = true }
+
+[build-dependencies]
+chrono = { version = "0.4", default-features = false, features = ["clock"] }

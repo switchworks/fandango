@@ -1,0 +1,28 @@
+[package]
+name = "fandango-tilt"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = ["vst3-export"]
+# VST3 エクスポートシンボル。`crates/shots` からリンクするときだけ外す。
+vst3-export = []
+standalone-preview = ["nih_plug/standalone"]
+
+[[bin]]
+name = "tilt_preview"
+path = "src/bin/tilt_preview.rs"
+required-features = ["standalone-preview"]
+
+[dependencies]
+nih_plug = { workspace = true }
+nih_plug_egui = { workspace = true }
+fandango-shared = { workspace = true }
+
+[build-dependencies]
+chrono = { version = "0.4", default-features = false, features = ["clock"] }
