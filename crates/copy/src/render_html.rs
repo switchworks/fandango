@@ -1,7 +1,12 @@
 //! Gumroad 商品ページ (`--description`) 向け HTML の組版。
 //!
 //! 受理される要素は `plans/archive/copy_source_v01.md` §2 の実測に従う。**`<img>` は通らない
-//! ので出さない** (同 不変条件 5)。画像はカバー機能で別途載せる。文字列は必ず
+//! ので出さない** (同 不変条件 5)。
+//!
+//! **保存されることと描画されることは別**。2026-09-01 の実機実測 (公開ページの DOM) で、
+//! `table` は行ごと、`iframe` は要素ごと落ち、`section` は本文全体が描画されなくなった。
+//! 描画されるのは `p` `h2` `h3` `ul` `ol` `li` `blockquote` `pre` `code` `strong` `em`
+//! `a[href]` `br` `hr` のみ。ここではその範囲だけを出す。動画はカバー機能 (`--preview-video`) で載せる。画像はカバー機能で別途載せる。文字列は必ず
 //! [`markdown::escape`] / [`markdown::to_html`] を通す (同 不変条件 4)。
 //!
 //! `docs/` への相対リンクを含む `prose.more` は、Gumroad 上では解決できないため
@@ -10,15 +15,9 @@
 use crate::markdown::{escape, to_html};
 use crate::{Copy, Result};
 
-const STYLE: &str = "<style>\
-.fandango .ja{opacity:.7;font-size:.9em}\
-.fandango table{width:100%;border-collapse:collapse}\
-.fandango td,.fandango th{text-align:left;vertical-align:top;padding:.35em .6em}\
-</style>";
-
 fn stacked(en: &str, ja: &str) -> String {
     format!(
-        "{}<br><span class=\"ja\" lang=\"ja\">{}</span>",
+        "{}<br>{}",
         escape(en),
         escape(ja)
     )
@@ -26,8 +25,6 @@ fn stacked(en: &str, ja: &str) -> String {
 
 pub fn render(c: &Copy) -> Result<String> {
     let mut s = String::new();
-    s.push_str(STYLE);
-    s.push_str("\n<section class=\"fandango\">\n");
 
     // タグラインは共有ヘッドで英日を並べる (README と同じ方針)。
     s.push_str(&format!(
@@ -37,24 +34,13 @@ pub fn render(c: &Copy) -> Result<String> {
         escape(&c.tagline.ja)
     ));
 
-    // デモ動画。`<img>` は通らないが `<iframe>` は通る (計画書 §2 の実測)。
-    s.push_str(&format!(
-        "<div style=\"position:relative;padding-bottom:56.25%;height:0\"><iframe src=\"https://www.youtube-nocookie.com/embed/{}\" title=\"{} demo\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;border:0\" allowfullscreen loading=\"lazy\"></iframe></div>
-",
-        escape(&c.meta.youtube_id),
-        escape(&c.meta.name)
-    ));
 
     s.push_str(&to_html(&c.prose.lead.en)?);
 
     // --- 共有ブロック (言語分割より上)。導線と収録内容を設計思想より先に出す。
     s.push_str(&h2(&format!("{} / {}", c.headings.get.en, c.headings.get.ja)));
     s.push_str(&to_html(&c.prose.get.en)?);
-    s.push_str("<div lang=\"ja\">
-");
     s.push_str(&to_html(&c.prose.get.ja)?);
-    s.push_str("</div>
-");
 
     s.push_str("<hr>
 ");
@@ -78,23 +64,21 @@ pub fn render(c: &Copy) -> Result<String> {
     // 日本語全文。畳まない (§5)。タグラインと導線は共有ヘッドへ移したので繰り返さない。
     s.push_str("<hr>
 ");
-    s.push_str("<div lang=\"ja\">
-");
     s.push_str(&to_html(&c.prose.lead.ja)?);
     s.push_str(&h2(&c.headings.what_is.ja));
     s.push_str(&to_html(&c.prose.what_is.ja)?);
     s.push_str(&to_html(&c.prose.promises.ja)?);
     s.push_str(&to_html(&c.prose.tradeoff.ja)?);
-    s.push_str("</div>
-");
 
     s.push_str("<hr>
 ");
     s.push_str(&h2(&c.headings.disclaimer.en));
     s.push_str(&to_html(&c.prose.disclaimer.en)?);
-    s.push_str("</section>\n");
 
     debug_assert!(!s.contains("<img"), "不変条件 5: img を出さない");
+    debug_assert!(!s.contains("<table"), "描画されない: table を出さない");
+    debug_assert!(!s.contains("<section"), "描画を全滅させる: section を出さない");
+    debug_assert!(!s.contains("<iframe"), "描画されない: iframe を出さない");
     Ok(s)
 }
 
@@ -123,16 +107,21 @@ fn plugins_section(c: &Copy) -> String {
     }
     s.push_str("</ul>\n");
 
-    s.push_str("<table>\n<thead><tr><th>Plugin</th><th>Type</th><th></th></tr></thead>\n<tbody>\n");
+    s.push_str("<ul>
+");
     for p in &c.plugins {
         s.push_str(&format!(
-            "<tr><td><code>:{}</code></td><td>{}</td><td>{}</td></tr>\n",
+            "<li><code>:{}</code> — {} — {}<br>{} — {}</li>
+",
             escape(&p.id),
-            stacked(&p.kind.en, &p.kind.ja),
-            stacked(&p.line.en, &p.line.ja),
+            escape(&p.kind.en),
+            escape(&p.line.en),
+            escape(&p.kind.ja),
+            escape(&p.line.ja),
         ));
     }
-    s.push_str("</tbody>\n</table>\n");
+    s.push_str("</ul>
+");
     s
 }
 

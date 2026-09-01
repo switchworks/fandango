@@ -38,8 +38,6 @@ pub struct EnOnly {
 pub struct Meta {
     pub name: String,
     pub author: String,
-    /// デモ動画の YouTube 動画 ID。Gumroad 説明文の埋め込みに使う。
-    pub youtube_id: String,
 }
 
 /// 散文。`copy.toml` 上はファイル名で、[`Copy::load`] が本文へ差し替える。
