@@ -8,7 +8,7 @@ fandango as a whole is distributed under the GNU General Public License,
 version 3 or later (see `LICENSE` at the repository root).
 
 The **foobar2000 component** — the sources under `fb2k/` and
-`crates/fb2k-ffi/`, together with the fandango sources those pull in —
+`crates/ffi/`, together with the fandango sources those pull in —
 is distributed under that same license, with the following additional
 permission granted under section 7 of the GPL:
 

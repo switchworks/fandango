@@ -1,12 +1,12 @@
 [package]
-name = "fandango-fb2k-ffi"
+name = "fandango-ffi"
 version = "0.1.0"
 edition = "2021"
 authors = ["switchworks"]
 license.workspace = true
-description = "C ABI staticlib for foobar2000 native DSP port (spread)"
+description = "C ABI staticlib exposing the fandango DSP cores to non-VST3 hosts"
 publish = false
 
 [lib]
 crate-type = ["staticlib", "rlib"]
-name = "fandango_fb2k_ffi"
+name = "fandango_ffi"

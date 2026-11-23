@@ -1007,7 +1007,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "fandango-fb2k-ffi"
+name = "fandango-ffi"
 version = "0.1.0"
 
 [[package]]

@@ -11,7 +11,7 @@ fandango DSP を foobar2000 v2 (x64) ネイティブコンポーネントとし�
 | WTL | `D:\wrk\fb2k-sdk\wtl10\`（`Releases\WTL10_10320_Final.zip` を展開） |
 | ATL | VS Build Tools の **C++ ATL** コンポーネント |
 | MSVC | PlatformToolset **v143**（SDK プロジェクトも `/p:PlatformToolset=v143` で上書き） |
-| Rust staticlib | `crates/fb2k-ffi` → `target/release/fandango_fb2k_ffi.lib` |
+| Rust staticlib | `crates/ffi` → `target/release/fandango_ffi.lib` |
 
 `D:\wrk\fb2k-sdk\Directory.Build.props` が WTL include を全 SDK プロジェクトに注入する。
 
@@ -19,7 +19,7 @@ fandango DSP を foobar2000 v2 (x64) ネイティブコンポーネントとし�
 
 ```powershell
 # 1) Rust FFI
-& "$env:USERPROFILE\.cargo\bin\cargo.exe" build --release -p fandango-fb2k-ffi
+& "$env:USERPROFILE\.cargo\bin\cargo.exe" build --release -p fandango-ffi
 
 # 2) C++ コンポーネント（本機では MSBuild を直パス指定する。理由は下記）
 & "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\MSBuild.exe" `
@@ -37,13 +37,13 @@ fandango DSP を foobar2000 v2 (x64) ネイティブコンポーネントとし�
 
 成果物: `fb2k\foo_dsp_fandango\Release\foo_dsp_fandango.dll`
 
-DSP の数式は `crates/nice-bulk` 等の Rust 実装を `crates/fb2k-ffi` の `build.rs` が
+DSP の数式は `crates/nice-bulk` 等の Rust 実装を `crates/ffi` の `build.rs` が
 取り込む構成（`*_patched.rs` を生成）。**Rust 側の DSP を直したら C++ は無変更で
 上記 1) → 2) を再実行するだけでよい**（数式の二重管理は不要）。
 
 > **ただし自動追随するのは数式だけ。** パラメータの**型・レンジ・既定値・保存形式**を
 > 変えた場合は C++ 側の追随が要る。触る箇所は
-> **FFI シグネチャ（`crates/fb2k-ffi/src/lib.rs`）/ ヘッダ（`fdg_ffi.h`）/
+> **FFI シグネチャ（`crates/ffi/src/lib.rs`）/ ヘッダ（`fdg_ffi.h`）/
 > ダイアログと永続化（`dsp_*.cpp`）** の 3 系統。
 >
 > **`fdg_ffi.h` と Rust の `#[no_mangle]` の不一致はリンク時に検出されない**
@@ -71,7 +71,7 @@ DSP Manager に **fandango spread**。
 - Rust コア: `crates/spread/src/dsp.rs` 等を `#[path]` で参照（VST3 crate 無改変）
 - **C++ ソースは ASCII のみ**。日本語コメントを UTF-8 (BOM 無) で書くと MSVC が
   CP932 と誤読し、後続行を飲み込んでコンパイルエラーになる
-- C ABI: `crates/fb2k-ffi` (`staticlib`)
+- C ABI: `crates/ffi` (`staticlib`)
 - ホスト: `dsp_impl_base` + `dsp_factory_t`（1 DLL / 複数 DSP 可）
 
 ## 聞き専 UX 規約（今後の DSP 追加も同じ）

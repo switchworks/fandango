@@ -18,7 +18,7 @@ fandango の統一軸は **代数閉形式 DSP** です。判断に迷ったら�
 - パラメータ ID (`bass_amount` / `hi_amount` / `bypass`)、UI、クロスオーバー周波数 (150 Hz / 4 kHz)、`VST3_CLASS_ID` を変更しない。
 - `AdaaSaturator` の有理化した不定積分と f64 差分商を f32 に戻さない。小信号の桁落ちノイズと定常音クリックの回帰テストを維持する。
 - env フォロワの追加的な自動追従、素材別のノブ範囲、しきい値追加で問題を覆い隠さない。
-- foobar2000 版は `crates/fb2k-ffi` 経由で `nice-bulk/src/dsp.rs` を共有する。DSP 数式を二重管理しない。
+- foobar2000 版は `crates/ffi` 経由で `nice-bulk/src/dsp.rs` を共有する。DSP 数式を二重管理しない。
 
 ## 実装・検証
 
@@ -33,4 +33,4 @@ fandango の統一軸は **代数閉形式 DSP** です。判断に迷ったら�
 & "$env:USERPROFILE\.cargo\bin\cargo.exe" nih-plug bundle fandango-nice-bulk --release
 ```
 
-- foobar2000 向けの DSP 変更では、上記に加えて `fandango-fb2k-ffi` と solution の Release/x64 ビルドを実行し、実機確認項目を報告する。
+- foobar2000 向けの DSP 変更では、上記に加えて `fandango-ffi` と solution の Release/x64 ビルドを実行し、実機確認項目を報告する。

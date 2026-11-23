@@ -14,7 +14,7 @@ members = [
     "crates/nice-bulk",
     "crates/nimbus",
     "crates/finalist",
-    "crates/fb2k-ffi",
+    "crates/ffi",
     "crates/shots",
     "crates/copy",
 ]

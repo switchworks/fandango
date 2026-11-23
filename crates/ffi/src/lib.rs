@@ -1,4 +1,8 @@
-//! C ABI for foobar2000 native DSP (spread + nice-bulk).
+//! C ABI exposing the fandango DSP cores to hosts that are not VST3.
+//!
+//! Consumers: the foobar2000 component in `fb2k/`, and the players built on
+//! top of this ABI. The name is deliberately consumer-neutral — it was
+//! `fb2k-ffi` until 2026-11-23, which read as if foobar2000 were the only one.
 //!
 //! DSP cores are the same sources as VST3 (path / build.rs patch). Do not edit
 //! those crate files from here.
