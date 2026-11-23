@@ -1,3 +1,12 @@
+/* C view of crates/ffi/src/lib.rs. Keep the two in sync by hand.
+ *
+ * A mismatch between these declarations and the Rust #[no_mangle] signatures
+ * is NOT caught at link time (the C ABI does not carry types), so it breaks
+ * silently. That is why this header lives next to the implementation rather
+ * than inside any one consumer's folder: it was under
+ * fb2k/foo_dsp_fandango/ until 2026-11-24, which read as if the foobar2000
+ * component owned it. Consumers copy it from here.
+ */
 #pragma once
 
 #include <stddef.h>

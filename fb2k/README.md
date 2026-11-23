@@ -43,7 +43,7 @@ DSP の数式は `crates/nice-bulk` 等の Rust 実装を `crates/ffi` の `buil
 
 > **ただし自動追随するのは数式だけ。** パラメータの**型・レンジ・既定値・保存形式**を
 > 変えた場合は C++ 側の追随が要る。触る箇所は
-> **FFI シグネチャ（`crates/ffi/src/lib.rs`）/ ヘッダ（`fdg_ffi.h`）/
+> **FFI シグネチャ（`crates/ffi/src/lib.rs`）/ ヘッダ（`crates/ffi/include/fdg_ffi.h`）/
 > ダイアログと永続化（`dsp_*.cpp`）** の 3 系統。
 >
 > **`fdg_ffi.h` と Rust の `#[no_mangle]` の不一致はリンク時に検出されない**

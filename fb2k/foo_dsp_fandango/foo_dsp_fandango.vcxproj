@@ -42,7 +42,7 @@
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <StringPooling>true</StringPooling>
       <OmitFramePointers>true</OmitFramePointers>
-      <AdditionalIncludeDirectories>..\..\..\fb2k-sdk\foobar2000;..\..\..\fb2k-sdk;..\..\..\fb2k-sdk\wtl10\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\crates\ffi\include;..\..\..\fb2k-sdk\foobar2000;..\..\..\fb2k-sdk;..\..\..\fb2k-sdk\wtl10\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FloatingPointModel>Fast</FloatingPointModel>
       <PreprocessorDefinitions>NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -70,7 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="fdg_ffi.h" />
+    <ClInclude Include="..\..\crates\ffi\include\fdg_ffi.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
