@@ -61,6 +61,13 @@ pub fn render(c: &Copy) -> String {
     s.push_str(&format!("{}\n\n", c.prose.install.en));
     s.push_str(&format!("## {}\n\n", c.headings.license.en));
     s.push_str(&format!("{}\n\n", c.prose.license.en));
+
+    s.push_str(&format!("## {}
+
+", c.headings.fb2k.en));
+    s.push_str(&format!("{}
+
+", c.prose.fb2k.en));
     s.push_str(&format!("## {}\n\n", c.headings.more.en));
     s.push_str(&format!("{}\n\n", c.prose.more.en));
 
@@ -104,6 +111,12 @@ fn plugins_section(c: &Copy) -> String {
     }
     s.push('\n');
 
+    s.push_str(&format!(
+        "**{}**<br><sub>{}</sub>
+
+",
+        c.headings.plugins_all.en, c.headings.plugins_all.ja
+    ));
     s.push_str("| Plugin | Type | |\n|---|---|---|\n");
     for p in &c.plugins {
         s.push_str(&format!(

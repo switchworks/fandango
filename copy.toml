@@ -23,17 +23,20 @@ more     = { ja = "more.ja.md",     en = "more.en.md" }
 requirements = { en = "requirements.en.md" }
 install      = { en = "install.en.md" }
 license      = { en = "license.en.md" }
+fb2k         = { en = "fb2k.en.md" }
 disclaimer   = { en = "disclaimer.en.md" }
 
 # 見出し語
 [headings]
 what_is  = { ja = "これは何", en = "What this is" }
 plugins  = { ja = "収録プラグイン", en = "The plugins" }
+plugins_all = { ja = "全収録", en = "Everything in the pack" }
 get      = { ja = "入手", en = "Get it" }
 more     = { ja = "作りに興味があれば", en = "If you care how it is built" }
 requirements = { en = "Requirements" }
 install      = { en = "Install" }
 license      = { en = "License" }
+fb2k         = { en = "Also included: foobar2000" }
 disclaimer   = { en = "Disclaimer" }
 
 # 導線ブロック。order の crate 名は [[plugin]] の id と一致しなければエラー

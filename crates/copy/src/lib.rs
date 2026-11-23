@@ -53,6 +53,7 @@ pub struct Prose {
     pub requirements: EnOnly,
     pub install: EnOnly,
     pub license: EnOnly,
+    pub fb2k: EnOnly,
     pub disclaimer: EnOnly,
 }
 
@@ -74,6 +75,7 @@ impl Prose {
             &mut self.requirements.en,
             &mut self.install.en,
             &mut self.license.en,
+            &mut self.fb2k.en,
             &mut self.disclaimer.en,
         ]
     }
@@ -84,11 +86,13 @@ impl Prose {
 pub struct Headings {
     pub what_is: Bilingual,
     pub plugins: Bilingual,
+    pub plugins_all: Bilingual,
     pub get: Bilingual,
     pub more: Bilingual,
     pub requirements: EnOnly,
     pub install: EnOnly,
     pub license: EnOnly,
+    pub fb2k: EnOnly,
     pub disclaimer: EnOnly,
 }
 

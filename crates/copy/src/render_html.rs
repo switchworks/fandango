@@ -37,11 +37,12 @@ pub fn render(c: &Copy) -> Result<String> {
 
     s.push_str(&to_html(&c.prose.lead.en)?);
 
-    // --- 共有ブロック (言語分割より上)。導線と収録内容を設計思想より先に出す。
-    s.push_str(&h2(&format!("{} / {}", c.headings.get.en, c.headings.get.ja)));
-    s.push_str(&to_html(&c.prose.get.en)?);
-    s.push_str(&to_html(&c.prose.get.ja)?);
-
+    // --- 共有ブロック (言語分割より上)。収録内容を設計思想より先に出す。
+    //
+    // `prose.get` は Gumroad では出さない。3 項目のうち Gumroad 自身への
+    // リンクが今いるページの自己参照になり、価格と配布形式の説明も購入 UI と
+    // 重複する。残る 2 項目も別経路がある: デモ動画はカバー枠で再生でき、
+    // GitHub は License 節からリンクされる。README では 3 項目とも出す。
     s.push_str("<hr>
 ");
     s.push_str(&plugins_section(c));
@@ -60,6 +61,9 @@ pub fn render(c: &Copy) -> Result<String> {
     s.push_str(&to_html(&c.prose.install.en)?);
     s.push_str(&h2(&c.headings.license.en));
     s.push_str(&to_html(&c.prose.license.en)?);
+
+    s.push_str(&h2(&c.headings.fb2k.en));
+    s.push_str(&to_html(&c.prose.fb2k.en)?);
 
     // 日本語全文。畳まない (§5)。タグラインと導線は共有ヘッドへ移したので繰り返さない。
     s.push_str("<hr>
@@ -107,6 +111,12 @@ fn plugins_section(c: &Copy) -> String {
     }
     s.push_str("</ul>\n");
 
+    s.push_str(&format!(
+        "<p><strong>{}</strong><br><span class=\"ja\" lang=\"ja\">{}</span></p>
+",
+        escape(&c.headings.plugins_all.en),
+        escape(&c.headings.plugins_all.ja)
+    ));
     s.push_str("<ul>
 ");
     for p in &c.plugins {
@@ -139,6 +149,31 @@ mod tests {
         assert!(!h.contains("<img"));
         assert!(!h.contains("background-image"));
         assert!(!h.contains("<picture"));
+    }
+
+    /// `prose` に項目を足して `Prose::parts_mut()` への追加を忘れると、本文の
+    /// 代わりにファイル名がそのまま出る (2026-09-01 に `fb2k` で踏んだ:
+    /// `<p>fb2k.en.md</p>`)。`parts_mut()` を使って検査すると同じ列挙を見に
+    /// 行くだけで漏れを検出できないため、`copy/` の実ファイル名を独立に
+    /// 読んで突き合わせる。
+    #[test]
+    fn no_prose_filename_leaks_into_output() {
+        let h = html();
+        let dir = crate::repo_root().join("copy");
+        let mut checked = 0;
+        for entry in std::fs::read_dir(&dir).expect("copy/ が読めること") {
+            let name = entry.expect("dir entry").file_name();
+            let name = name.to_string_lossy().into_owned();
+            if !name.ends_with(".md") {
+                continue;
+            }
+            assert!(
+                !h.contains(&format!(">{name}<")),
+                "本文へ置換されていない: {name}"
+            );
+            checked += 1;
+        }
+        assert!(checked > 0, "copy/ に .md が 1 つも無い");
     }
 
     #[test]

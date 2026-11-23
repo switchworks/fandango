@@ -28,6 +28,29 @@ DAW 側の VST3 フォルダから `target/bundled/*.vst3` へシンボリック
 
 **新しい作業に入る前に本ファイルを読む。** 現に未裁定の項目が実装判断に影響する場合がある。
 
+## Gumroad 説明文は `private/scripts/publish-gumroad.ps1` で投入する
+
+正本は `copy.toml`。手順は `copy.toml` 編集 → `copygen all` → 本スクリプトの一本道。
+
+```
+cargo run -q -p fandango-copy --bin copygen -- all
+./private/scripts/publish-gumroad.ps1
+```
+
+スクリプトと商品 ID は `private/` に置く (`.gitignore` 済み)。ID は
+`private/gumroad-product-id.txt`。**`scripts/` は公開リポジトリに入るので商品 ID を
+書かない。**
+
+**禁止**: `gumroad products update --description` を素で叩く手順をユーザーに渡す。
+`--description` は文字列しか受けない (`--custom-html` と違いパス不可) ため HTML を
+シェル経由で渡すことになり、Windows PowerShell 5.1 では BOM 無し UTF-8 が CP932 として
+読まれて日本語が全壊する (2026-09-01 に公開ページで実害)。**CLI は成功を返す** ので
+投入後の照合なしには気づけない。スクリプトは UTF-8 読みを明示し、投入後に
+`products view --json` から読み戻して照合語の存在を確認する。
+
+**禁止**: Gumroad の Web エディタで説明文欄を開く。開くだけで内部形式へ正規化され、
+Save すると CLI で入れた組版が失われる。確認は公開ページか `products view` で行う。
+
 ## cargo フルパス
 
 PATH 未登録の環境では `~/.cargo/bin/cargo` を明示する（Windows/PowerShell なら `"$env:USERPROFILE\.cargoin\cargo.exe"`）。

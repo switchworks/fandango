@@ -40,6 +40,8 @@ Built to finish a record in a bedroom. No heavy gear, no setup ritual.
 - **`:nice-bulk`** — Two knobs, and only the low and high body comes up.<br><sub>ノブ 2 つで低域と高域の量感だけが増える</sub>
 - **`:raindrop`** — Load it and the texture changes outright. A short tail you have heard before.<br><sub>挿すと音の質感がはっきり変わる。聞き覚えのある短さ</sub>
 
+**Everything in the pack**<br><sub>全収録</sub>
+
 | Plugin | Type | |
 |---|---|---|
 | **`:spread`** | Stereo width<br><sub>ステレオ幅</sub> | It widens. The phase does not move.<br><sub>広げても、位相は動かない。</sub> |
@@ -112,6 +114,10 @@ released binary is published under the corresponding version tag.
 
 Full text: [LICENSE](https://github.com/switchworks/fandango/blob/main/LICENSE). Third-party dependency licenses:
 [licenses/THIRD-PARTY.md](https://github.com/switchworks/fandango/blob/main/licenses/THIRD-PARTY.md).
+
+## Also included: foobar2000
+
+A side port is in the same download, as a separate zip: five of the twelve — `:spread`, `:crush`, `:tilt`, `:nice-bulk`, `:finalist` — built as foobar2000 DSPs, so you can use them while listening rather than while producing. Same formulas as the VST3 versions. Installation is covered by the `INSTALL-fb2k.txt` inside that zip.
 
 ## If you care how it is built
 

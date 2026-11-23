@@ -1,0 +1,1 @@
+A side port is in the same download, as a separate zip: five of the twelve — `:spread`, `:crush`, `:tilt`, `:nice-bulk`, `:finalist` — built as foobar2000 DSPs, so you can use them while listening rather than while producing. Same formulas as the VST3 versions. Installation is covered by the `INSTALL-fb2k.txt` inside that zip.
